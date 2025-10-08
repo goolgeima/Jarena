@@ -7,25 +7,16 @@ public class AgenteGremio extends Agente {
 	}
 
 	public void pensa() {
-		// Se não conseguimos nos mover para a direção atual, quer dizer
-		// que chegamos no final do mapa ou existe algo bloqueando nosso
-		// caminho.
+
 		if (!podeMoverPara(getDirecao())) {
-			// Como não conseguimos nos mover, vamos escolher uma direção
-			// nova.
 			setDirecao(geraDirecaoAleatoria());
 		}
 
-		// Se o agente conseguie se dividir (tem energia) e se o total de energia
-		// do agente é maior que 400, nos dividimos. O agente filho terá a metade
-		// da nossa energia atual.
-		if (podeDividir() && getEnergia() >= 800) {
-			divide();
-		}
 	}
 
 	public void recebeuEnergia() {
 		// Invocado sempre que o agente recebe energia.
+		enviaMensagem("" + this.getX() + "," + this.getY() + "," + this.getId());
 	}
 
 	public void tomouDano(int energiaRestanteInimigo) {
@@ -39,10 +30,32 @@ public class AgenteGremio extends Agente {
 
 	public void recebeuMensagem(String msg) {
 		// Invocado sempre que um agente aliado próximo envia uma mensagem.
+		String[] mensagemrecebida = msg.split(",");
+
+		int x = Integer.parseInt(mensagemrecebida[0]);
+		int y = Integer.parseInt(mensagemrecebida[1]);
+		double id = Double.parseDouble(mensagemrecebida[2]);
+
+		// faz o cara seguir o cogumelo
+		(
+			if (this.getX() < x) {
+			setDirecao(1);
+		}
+			if (this.getX() > x) {
+			setDirecao(2);
+		}
+			if (this.getY() < y) {
+			setDirecao(3);
+		}
+			if (this.getY() > y) {
+			setDirecao(4);
+		}
+		)
+
 	}
 
 	public String getEquipe() {
-		// Definimos que o nome da equipe do agente é "Fernando".
-		return "Fernando";
+		// Definimos que o nome da equipe do agente é "Grêmio".
+		return "Grêmio";
 	}
 }
