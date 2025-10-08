@@ -16,12 +16,19 @@ public class AgenteGremio extends Agente {
 
 	public void recebeuEnergia() {
 		// Invocado sempre que o agente recebe energia.
-		enviaMensagem("" + this.getX() + "," + this.getY() + "," + this.getId());
+		enviaMensagem("seguir" + "," + this.getX() + "," + this.getY() + "," + this.getId());
 	}
 
 	public void tomouDano(int energiaRestanteInimigo) {
 		// Invocado quando o agente está na mesma posição que um agente inimigo
 		// e eles estão batalhando (ambos tomam dano).
+
+		if (this.getEnergia() > energiaRestanteInimigo) {
+			enviaMensagem("seguir" + "," + this.getX() + "," + this.getY() + "," + this.getId());
+		} else if (this.getEnergia() < energiaRestanteInimigo || this.getEnergia() > energiaRestanteInimigo / 2) {
+			para(); // se mexer gasta o dobro que ficar parado
+		}
+
 	}
 
 	public void ganhouCombate() {
@@ -29,29 +36,46 @@ public class AgenteGremio extends Agente {
 	}
 
 	public void recebeuMensagem(String msg) {
-		// Invocado sempre que um agente aliado próximo envia uma mensagem.
 		String[] mensagemrecebida = msg.split(",");
 
-		int x = Integer.parseInt(mensagemrecebida[0]);
-		int y = Integer.parseInt(mensagemrecebida[1]);
-		double id = Double.parseDouble(mensagemrecebida[2]);
+		if (mensagemrecebida[0].equals("seguir")) {
 
-		// faz o cara seguir o cogumelo
-		(
-			if (this.getX() < x) {
-			setDirecao(1);
-		}
-			if (this.getX() > x) {
-			setDirecao(2);
-		}
-			if (this.getY() < y) {
-			setDirecao(3);
-		}
-			if (this.getY() > y) {
-			setDirecao(4);
-		}
-		)
+			int x = Integer.parseInt(mensagemrecebida[1]);
+			int y = Integer.parseInt(mensagemrecebida[2]);
+			double id = Double.parseDouble(mensagemrecebida[3]);
 
+			// faz o cara seguir
+
+			// calcula a distancia
+			int deltaX = this.getX() - x;
+			int deltaY = this.getY() - y;
+
+			// calcula o modulo
+			int distanciaX = Math.abs(deltaX);
+			int distanciaY = Math.abs(deltaY);
+
+			if (distanciaX > distanciaY) {
+
+				// delta negativo = alvo à direita
+				// delta positivo = alvo à esquerda
+				if (deltaX < 0) {
+					setDirecao(1);
+				} else if (deltaX > 0) {
+					setDirecao(2);
+				}
+
+			} else if (distanciaY > distanciaX) {
+				// delta negativo = alvo acima
+				// delta positivo = alvo abaixo
+				if (deltaY > 0) {
+					setDirecao(4);
+				} else if (deltaY < 0) {
+					setDirecao(3);
+				}
+
+			}
+
+		}
 	}
 
 	public String getEquipe() {
