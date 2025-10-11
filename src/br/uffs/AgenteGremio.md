@@ -10,15 +10,14 @@ Os agentes nunca se dividirão.
 
 1. Caso o agente encontre um cogumelo e receba energia, o mesmo envia uma mensagem aos agentes próximos, com as seguintes informações:
 
-1- Comando "seguir";
-2- A coordenada X atual;
-3- A coordenada Y atual;
+* Comando "seguir";
+* A coordenada X atual;
+* A coordenada Y atual;
 
 2. Ao receber a mensagem com o comando "seguir", os agentes próximos realizam o processo a seguir:
 
-1. Calcula a distância entre a posição atual até a posição do agente que enviou a mensagem;
-
-2. Compara as distâncias entre os eixos X e Y, e se movimenta na direção que a distância for maior.
+* Calcula a distância entre a posição atual até a posição do agente que enviou a mensagem
+* Compara as distâncias entre os eixos X e Y, e se movimenta na direção que a distância for maior
 
 Essa lógica do comando "seguir" foi reutilizada na lógica de combate.
 
