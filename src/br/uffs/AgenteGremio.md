@@ -6,7 +6,7 @@
 
 Os agentes nunca se dividirão.
 
-# Lógica ao receber energia
+## Lógica ao receber energia
 
 1. Caso o agente encontre um cogumelo e receba energia, o mesmo envia uma mensagem aos agentes próximos, com as seguintes informações:
 
@@ -22,7 +22,7 @@ Os agentes nunca se dividirão.
 
 Essa lógica do comando "seguir" foi reutilizada na lógica de combate.
 
-# Lógica de Combate
+## Lógica de Combate
 
 1. Caso o agente tiver mais energia que o inimigo, ele irá mandar uma mensagem para os agentes próximos o seguirem.
 
